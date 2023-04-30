@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog, messagebox
 import getpass
 import pandas as pd
+import webbrowser
 
 import sys
 import os
@@ -22,8 +23,9 @@ icon_path = os.path.join(bundle_dir, 'CSAT_FCR.ico')
 root = Tk()
 
 root.title("CSAT & FCR Achievement")
-root.geometry('500x650')
+root.geometry('525x600')
 root.iconbitmap(default=icon_path)
+root.resizable(False, False)
 
 
 def upload_file():
@@ -337,18 +339,18 @@ entry_dissatisfied = Entry(csat_frame, width=3, state='disabled',
 entry_dissatisfied.grid(row=2, column=1, padx=10, pady=10)
 
 label_csat = Label(csat_frame, text='CSAT: ')
-label_csat.grid(row=3, column=0, padx=10, pady=10)
+label_csat.grid(row=0, column=2, padx=10, pady=10)
 
 entry_csat = Entry(csat_frame, width=8, state='disabled',
                    disabledbackground="white", disabledforeground="black")
-entry_csat.grid(row=3, column=1, padx=10, pady=10)
+entry_csat.grid(row=0, column=3, padx=10, pady=10)
 
 label_dsat = Label(csat_frame, text='DSAT: ')
-label_dsat.grid(row=4, column=0, padx=10, pady=10)
+label_dsat.grid(row=1, column=2, padx=10, pady=10)
 
 entry_dsat = Entry(csat_frame, width=8, state='disabled',
                    disabledbackground="white", disabledforeground="black")
-entry_dsat.grid(row=4, column=1, padx=10, pady=10)
+entry_dsat.grid(row=1, column=3, padx=10, pady=10)
 
 fcr_frame = LabelFrame(current_stats_frame, text='FCR')
 fcr_frame.pack(fill=Y, side=RIGHT, padx=10, pady=10)
@@ -368,11 +370,11 @@ entry_no = Entry(fcr_frame, width=3, state='disabled',
 entry_no.grid(row=1, column=1, padx=10, pady=10)
 
 label_fcr = Label(fcr_frame, text='FCR: ')
-label_fcr.grid(row=2, column=0, padx=10, pady=10)
+label_fcr.grid(row=0, column=2, padx=10, pady=10)
 
 entry_fcr = Entry(fcr_frame, width=8, state='disabled',
                   disabledbackground="white", disabledforeground="black")
-entry_fcr.grid(row=2, column=1, padx=10, pady=10)
+entry_fcr.grid(row=0, column=3, padx=10, pady=10)
 
 achievement_frame = LabelFrame(root, text='Achievement Targets')
 achievement_frame.pack(fill=X, padx=10, pady=10)
@@ -418,5 +420,25 @@ entry_achievement_fcr_90 = Entry(achievement_frame, width=4, state='disabled',
                                  disabledbackground="white",
                                  disabledforeground="black")
 entry_achievement_fcr_90.grid(row=4, column=1, padx=10, pady=10)
+
+def set_hand_cursor(event):
+    status_bar_text.config(cursor="hand2")
+
+def set_arrow_cursor(event):
+    status_bar_text.config(cursor="arrow")
+
+def visit_url(event):
+    webbrowser.open_new("https://github.com/milenek-x")
+
+status_bar = Frame(root, bd=1, relief=SUNKEN)
+status_bar.pack(side=BOTTOM, fill=X)
+
+status_bar_text = Label(status_bar, text="Created by milenek-x ")
+status_bar_text.pack(side=RIGHT)
+
+status_bar_text.bind("<Enter>", set_hand_cursor)
+status_bar_text.bind("<Leave>", set_arrow_cursor)
+status_bar_text.bind("<Button-1>", visit_url)
+
 
 root.mainloop()
